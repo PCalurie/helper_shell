@@ -61,12 +61,12 @@ int main(int argc, char *argv[])
 		{
 			display_prompt();
 
-			fgets(input, sizeof(input), stdin);input[strcspn(input, "\n")] = '\0';
+			fgets(input, sizeof(input), stdin);
+			input[strcspn(input, "\n")] = '\0';
 
 			if (fgets(input, sizeof(input), stdin) == NULL)
 			break;
 			if (strcmp(input, "exit") == 0) {
-				printf("Exiting the shell...\n");
 				exit(0);
 			}
 
