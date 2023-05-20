@@ -39,7 +39,6 @@ int main(int argc, char *argv[])
 	{
 		/* File mode - read commands from a file */
 		FILE *file = fopen(argv[1], "r");
-		char *token;
 
 		if (file == NULL)
 		{
@@ -49,10 +48,6 @@ int main(int argc, char *argv[])
 
 		while (fgets(input, sizeof(input), file))
 		{
-			token = strtok(input, "");
-			if (strcmp(token, "exit\n") == 0) {
-				break;
-			}
 			remove_newline(input);
 			execute_command(input);
 		}
@@ -66,8 +61,14 @@ int main(int argc, char *argv[])
 		{
 			display_prompt();
 
+			fgets(input, sizeof(input), stdin);
+			input[strcspn(input, "\n")] = '\0';
+
 			if (fgets(input, sizeof(input), stdin) == NULL)
 			break;
+			if (strcmp(input, "exit") == 0) {
+				exit(0);
+			}
 
 			handle_comments(input);
 
